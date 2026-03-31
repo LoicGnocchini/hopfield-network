@@ -4,7 +4,8 @@ from numpy.typing import NDArray
 
 
 """
-hamming distance function
+hamming distance function, takes two args; network's state and original
+pattern
 """
 
 def calculate_hamming(state: NDArray[np.int8], 
