@@ -1,7 +1,7 @@
 import numpy as np
 
 from numba import njit
-from wrappers import timer
+from timer_wrapper import timer
 from numpy.typing import NDArray
 
 """
