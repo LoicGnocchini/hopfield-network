@@ -25,14 +25,7 @@ def update_asynch(state_orig: NDArray[np.int8], W: NDArray[np.float64],
             i = rng.integers(0,len(state))
             h = np.dot(W[i,:],state)
 
-            if h > 0:
-                state[i] = 1    # s_i = +1
-    
-            elif h < 0:
-                state[i] = -1   # s_i = -1
-    
-            else:
-                pass            # s_i = s_i 
+            state[i] = np.sign(h)
 
         if np.array_equal(state,state_temp):
             break
