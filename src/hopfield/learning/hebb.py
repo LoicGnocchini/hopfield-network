@@ -10,9 +10,9 @@ Hebb training for weight matrix
 
 def weight_hebb(P: NDArray[np.int8]) -> NDArray[np.float64]:
 
-    nombre_patterns, N = P.shape
-
-    W = (np.sum(np.array([np.outer(p,p) for p in P]) - np.identity(N), axis=0))/ N
+    _, N = P.shape
+    W = (P.T @ P).astype(np.float64)/ N
+    np.fill_diagonal(W,0.0)
 
     return W
 
