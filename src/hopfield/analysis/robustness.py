@@ -105,6 +105,7 @@ def plot_overlap_vs_noise():
 
     plt.show()
 
+
 def main():
     plot_overlap_vs_noise()
 

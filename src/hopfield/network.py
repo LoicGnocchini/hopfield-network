@@ -55,6 +55,8 @@ if __name__ == "__main__":
     norm = mcolors.Normalize(vmin=-1, vmax=1)
     
 
+# -----------------------------random patterns-----------------------------------
+
     patterns = generate_patterns(10, 10, rng)
     # corr_patterns = np.array([p for p in corrupt.corrupt_pattern(patterns, 0.10, rng)])
     corr_pattern = corrupt.corrupt_pattern(patterns[0], 0.4, rng)
@@ -62,8 +64,6 @@ if __name__ == "__main__":
     cleaned_pattern = run_network(patterns, corr_pattern, 
                                   hebb.weight_hebb, rng)
 
-    
-# -----------------------------random patterns-----------------------------------
     corr_pat_matrix = corr_pattern.reshape(10,10)
     pattern_0_matrix = patterns[0].reshape(10,10)
     cleaned_pattern_matrix = cleaned_pattern.reshape(10,10)
@@ -159,7 +159,7 @@ if __name__ == "__main__":
     # plt.imshow(xavier2_clean.reshape(100,100), cmap=cmap_nb, norm=norm)
     # plt.title("xavier2 cleaned")
 
-    plt.show()
+    # plt.show()
 
     # ---------focused corrupt plots----------
     # plt.subplot(2,1,1)
