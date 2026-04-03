@@ -11,7 +11,8 @@ from  timer_wrapper import timer
 
 from hopfield.learning import hebb, perceptron
 from hopfield.update import asynchronous
-from hopfield import corrupt
+from hopfield.utils import corrupt
+from hopfield.analysis import overlap
 
 
 rng = np.random.default_rng(seed=0)
@@ -31,7 +32,7 @@ def generate_patterns(num_patterns: int,
     return rng.choice([-1,1], size=(num_patterns, m**2))
 
 
-@timer
+# @timer
 def run_network(Patterns_arr: NDArray[np.int8], 
                 Pattern_corrupt: NDArray[np.int8], 
                 learn: Callable,
@@ -49,30 +50,30 @@ def run_network(Patterns_arr: NDArray[np.int8],
 
 if __name__ == "__main__":
 
+     # template pour cmap noir et blanc-----------------------------------------
+    cmap_nb = mcolors.LinearSegmentedColormap.from_list("noir_blanc", ["black", "white"])
+    norm = mcolors.Normalize(vmin=-1, vmax=1)
+    
 
-
-    patterns = generate_patterns(1, 100, rng)
+    patterns = generate_patterns(10, 10, rng)
     # corr_patterns = np.array([p for p in corrupt.corrupt_pattern(patterns, 0.10, rng)])
-    corr_pattern = corrupt.corrupt_pattern(patterns[0], 0.25, rng)
+    corr_pattern = corrupt.corrupt_pattern(patterns[0], 0.4, rng)
 
     cleaned_pattern = run_network(patterns, corr_pattern, 
                                   hebb.weight_hebb, rng)
 
-    print(corr_pattern)
-    print(cleaned_pattern)
-    print(patterns[0])
-    print(patterns.size)
     
+# -----------------------------random patterns-----------------------------------
+    corr_pat_matrix = corr_pattern.reshape(10,10)
+    pattern_0_matrix = patterns[0].reshape(10,10)
+    cleaned_pattern_matrix = cleaned_pattern.reshape(10,10)
 
-    corr_pat_matrix = corr_pattern.reshape(100,100)
-    pattern_0_matrix = patterns[0].reshape(100,100)
-    cleaned_pattern_matrix = cleaned_pattern.reshape(100,100)
-
-
-    # template pour cmap noir et blanc-----------------------------------------
-    cmap_nb = mcolors.LinearSegmentedColormap.from_list("noir_blanc", ["black", "white"])
-    norm = mcolors.Normalize(vmin=-1, vmax=1)
+    recouvrements = []
+    for pattern in patterns:
+        recouvrements.append(overlap.compute_overlap(cleaned_pattern, pattern))
     
+    print(recouvrements)
+   
 
     plt.subplot(1,3,1)
     plt.imshow(pattern_0_matrix, cmap=cmap_nb, norm=norm)

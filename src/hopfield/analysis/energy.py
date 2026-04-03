@@ -6,7 +6,7 @@ from numpy.typing import NDArray
 energy function
 """
 
-def calculate_energy(state: NDArray[np.int8], 
+def compute_energy(state: NDArray[np.int8], 
                      weight_matrix: NDArray[np.float64]
                      ) -> float:
 

@@ -8,7 +8,7 @@ from numpy.typing import NDArray
 asyncrhonous update of neurons
 """
 # @njit
-@timer
+# @timer
 def update_asynch(state_orig: NDArray[np.int8], W: NDArray[np.float64],
                   rng: np.random.Generator) ->NDArray[np.int8]:
     """

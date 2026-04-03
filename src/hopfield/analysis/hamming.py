@@ -8,7 +8,7 @@ hamming distance function, takes two args; network's state and original
 pattern
 """
 
-def calculate_hamming(state: NDArray[np.int8], 
+def compute_hamming(state: NDArray[np.int8], 
                       pattern: NDArray[np.int8]
                       ) -> float:
     
