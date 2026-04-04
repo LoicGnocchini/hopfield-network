@@ -7,27 +7,58 @@ from numpy.typing import NDArray
 """
 asyncrhonous update of neurons
 """
-# @njit
+
+def rand_indexes(N: int,
+                 sweeps: int, 
+                 rng: np.random.Generator
+                 ) -> NDArray[np.int64]:
+    
+    indexes = rng.integers(0, N, size=sweeps * N)
+    return indexes
+
 # @timer
-def update_asynch(state_orig: NDArray[np.int8], W: NDArray[np.float64],
-                  rng: np.random.Generator) ->NDArray[np.int8]:
+@njit
+def asynch(state_orig: NDArray[np.float64], 
+           W: NDArray[np.float64],
+           indexes: NDArray[np.int64]
+           ) ->NDArray[np.int8]:
     """
     asynchronous update; calulating the local field of neurons one by one 
     randomly until given number of sweeps or convergence.
     """
-    sweeps = 1000
     state = state_orig.copy()
+    sweeps = indexes.size // state.size
 
-    for _ in range(sweeps):
-        state_temp = state.copy()
-        for _ in range(len(state)):
+    for sweep in range(sweeps):
+        changed = False
+        start = sweep * state.size
+        end = (sweep + 1) * state.size
 
-            i = rng.integers(0,len(state))
-            h = np.dot(W[i,:],state)
+        for k in range(start, end):
+            index = indexes[k]
+            # h = np.dot(W[index,:],state)
+            h = 0.0
+            for j in range(state.size):
+                h += W[index, j] * state[j]
 
-            state[i] = np.sign(h)
 
-        if np.array_equal(state,state_temp):
+            new_val = 1.0 if h >= 0 else -1.0
+            
+            if new_val != state[index]:
+                state[index] = new_val
+                changed = True
+
+        if not changed:
             break
 
-    return state
+    return state.astype(np.int8)
+
+def update_asynch(state_orig: NDArray[np.int8], 
+                  W: NDArray[np.float64],
+                  rng: np.random.Generator,
+                  ) ->NDArray[np.int8]:
+
+    sweeps = 1000
+    indexes_arr = rand_indexes(state_orig.size, sweeps, rng)
+
+    return asynch(state_orig.astype(np.float64), W, indexes_arr)

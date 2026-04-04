@@ -9,6 +9,9 @@ pattern. Returns the overlap.
 
 def compute_overlap(state: NDArray[np.int8], 
                        pattern: NDArray[np.int8]
-                       ) -> NDArray[np.float64]:
+                       ) -> float:
 
-    return np.dot(pattern, state)/state.size
+    return float(np.dot(pattern, state)/state.size)
+
+
+

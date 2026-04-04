@@ -21,7 +21,7 @@ rng = np.random.default_rng(seed=0)
 hopfield network function
 """
 
-
+# @timer
 def generate_patterns(num_patterns: int, 
                       m: int, 
                       rng: np.random.Generator
@@ -91,16 +91,16 @@ if __name__ == "__main__":
 #--------------------------------------------------------------------------------
 #--------------------------------XAV & LOUNA-------------------------------------
 
-    louna = np.array(np.loadtxt("src/hopfield/data/image1_100x100_matrix.txt"),
-                      dtype= np.int8)
-    xavier = np.array(np.loadtxt("src/hopfield/data/image2_100x100_matrix.txt"), 
-                      dtype=np.int8)
-    xavier2 = np.array(np.loadtxt("src/hopfield/data/image3_100x100_matrix.txt"), 
-                      dtype=np.int8)
+    # louna = np.array(np.loadtxt("src/hopfield/data/image1_100x100_matrix.txt"),
+    #                   dtype= np.int8)
+    # xavier = np.array(np.loadtxt("src/hopfield/data/image2_100x100_matrix.txt"), 
+    #                   dtype=np.int8)
+    # xavier2 = np.array(np.loadtxt("src/hopfield/data/image3_100x100_matrix.txt"), 
+    #                   dtype=np.int8)
 
-    patterns_xl = np.array([  louna.reshape(10_000,),
-                             xavier.reshape(10_000,), 
-                            xavier2.reshape(10_000,)])
+    # patterns_xl = np.array([  louna.reshape(10_000,),
+    #                          xavier.reshape(10_000,), 
+    #                         xavier2.reshape(10_000,)])
 
     # -------------corrupt---------------
     # louna_corr   = corrupt.corrupt_pattern(  louna.reshape(10_000,), 0.4, rng)
