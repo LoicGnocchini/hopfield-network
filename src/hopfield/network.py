@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
     patterns = generate_patterns(10, 10, rng)
     # corr_patterns = np.array([p for p in corrupt.corrupt_pattern(patterns, 0.10, rng)])
-    corr_pattern = corrupt.corrupt_pattern(patterns[0], 0.4, rng)
+    corr_pattern = corrupt.corrupt_pattern(patterns[0], 0.3, rng)
 
     cleaned_pattern = run_network(patterns, corr_pattern, 
                                   hebb.weight_hebb, rng)

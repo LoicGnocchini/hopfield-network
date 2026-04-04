@@ -7,11 +7,12 @@ from numpy.typing import NDArray
 """
 Hebb training for weight matrix
 """
-
+@njit
 def weight_hebb(P: NDArray[np.int8]) -> NDArray[np.float64]:
 
     _, N = P.shape
-    W = (P.T @ P).astype(np.float64)/ N
+    Pf = P.astype(np.float64)
+    W = (Pf.T @ Pf)/ N
     np.fill_diagonal(W,0.0)
 
     return W

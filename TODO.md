@@ -5,6 +5,7 @@
 - [ ] Implement unit tests
 - [ ] Continue analysis of network with hebb
 - [ ] Analyse with perceptron and compare with hebb
+- [ ] re-do perceptron.py ; the weight matrix never converges 
 
 ### In Progress
 
