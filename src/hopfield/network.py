@@ -33,14 +33,13 @@ def generate_patterns(num_patterns: int,
 
 
 # @timer
-def run_network(Patterns_arr: NDArray[np.int8], 
+def run_network(weight: NDArray[np.float64], 
                 Pattern_corrupt: NDArray[np.int8], 
-                learn: Callable,
-                rng: np.random.Generator,
+                rng: np.random.Generator
                 ) ->NDArray[np.int8]:
     
     state = Pattern_corrupt
-    W = learn(Patterns_arr)
+    W = weight
 
     return asynchronous.update_asynch(state, W, rng)
     
@@ -61,8 +60,7 @@ if __name__ == "__main__":
     # corr_patterns = np.array([p for p in corrupt.corrupt_pattern(patterns, 0.10, rng)])
     corr_pattern = corrupt.corrupt_pattern(patterns[0], 0.3, rng)
 
-    cleaned_pattern = run_network(patterns, corr_pattern, 
-                                  hebb.weight_hebb, rng)
+    cleaned_pattern = run_network(hebb.weight_hebb(patterns), corr_pattern, rng)
 
     corr_pat_matrix = corr_pattern.reshape(10,10)
     pattern_0_matrix = patterns[0].reshape(10,10)

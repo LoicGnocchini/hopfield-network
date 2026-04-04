@@ -29,6 +29,7 @@ def compute_recovery_robustness(num_patterns: int,
                                       NDArray[np.float64]]:
     
     patterns = network.generate_patterns(num_patterns,size, rng)
+    W = learning(patterns)
 
     mean_overlap_arr = []
     std_overlap_arr = []
@@ -38,7 +39,7 @@ def compute_recovery_robustness(num_patterns: int,
         for i,pattern in enumerate(patterns):
 
             corr_pattern = corrupt.corrupt_pattern(pattern, noise, rng)
-            recovered_pat = network.run_network(patterns, corr_pattern, learning, rng)
+            recovered_pat = network.run_network(W, corr_pattern, rng)
 
             overlaps.append(overlap.compute_overlap(recovered_pat, pattern))
 

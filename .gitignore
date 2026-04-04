@@ -33,6 +33,4 @@ dist/
 .pytest_cache/
 .coverage
 htmlcov/
-
-# Results if you don't want to version them
-# results/
+celeba_subset/
