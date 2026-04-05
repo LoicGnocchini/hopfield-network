@@ -50,7 +50,7 @@ def stability_rand(num_patterns: NDArray[np.int64],
     stable_patterns = np.zeros(num_patterns.size, dtype=(np.float64))
     stable_percentile = np.zeros(num_patterns.size, dtype=(np.float64))
 
-    for i,nP in enumerate(num_patterns):
+    for i,nP in enumerate(tqdm(num_patterns)):
         patterns = network.generate_patterns(nP, 100, rng)
         W = learn(patterns)
 
@@ -69,30 +69,30 @@ def plot_stability_deter():
 
     idx_not_one = np.where(y != 1)[0][0]
 
-    plt.plot(x * 100, y,'o', color='black')
+    plt.plot(x, y * 100,'o', color='black')
     plt.axvline(float(x[idx_not_one - 1]), linestyle='--', color="red")
-    plt.savefig("src/hopfield/figures/fig_2a.pdf")
     plt.xlabel("number of patterns")
     plt.ylabel("Stable patterns (%)")
+    plt.savefig("src/hopfield/figures/fig_2a.pdf")
     plt.show()
 
 
 def plot_stability_rand():
 
-    x, y = stability_rand(np.array([10, 25, 100, 200, 400, 600]), hebb.weight_hebb)
+    x, y = stability_rand(np.array([10, 25, 100, 200, 300, 400, 500, 600, 700, 800]), hebb.weight_hebb)
 
     idx_not_one = np.where(y != 1)[0][0]
 
-    plt.plot(x * 100, y, 'o', color='black')
+    plt.plot(x, y * 100, 'o', color='black')
     plt.axvline(float(x[idx_not_one - 1]), linestyle='--', color="red")
-    plt.savefig("src/hopfield/figures/fig1_2b.pdf")
     plt.xlabel("number of patterns")
     plt.ylabel("Stable patterns (%)")
-    pass
+    plt.savefig("src/hopfield/figures/fig1_2b.pdf")
+    plt.show()
 
 
 
 if __name__ == "__main__":
     
-    plot_stability_deter()
-    # plot_stability_rand()
+    # plot_stability_deter()
+    plot_stability_rand()
