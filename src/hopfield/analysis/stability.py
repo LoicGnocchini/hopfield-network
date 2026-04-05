@@ -32,7 +32,7 @@ def stability_deter(num_patterns: NDArray[np.int64],
         W = learn(patterns)
 
         for j,pattern in enumerate(patterns):
-            state = network.run_network(W, pattern, rng)
+            state, _ = network.run_network(W, pattern, rng)
             
             if np.array_equal(state, pattern):
                 stable_patterns[i] += 1
@@ -56,7 +56,7 @@ def stability_rand(num_patterns: NDArray[np.int64],
 
         for j,pattern in enumerate(patterns):
 
-            state = network.run_network(W, pattern, rng)
+            state, _ = network.run_network(W, pattern, rng)
             if np.array_equal(state,pattern):
                 stable_patterns[i] += 1
         stable_percentile[i] = stable_patterns[i] / nP
@@ -87,12 +87,12 @@ def plot_stability_rand():
     plt.axvline(float(x[idx_not_one - 1]), linestyle='--', color="red")
     plt.xlabel("number of patterns")
     plt.ylabel("Stable patterns (%)")
-    plt.savefig("src/hopfield/figures/fig1_2b.pdf")
+    plt.savefig("src/hopfield/figures/fig_2b.pdf")
     plt.show()
 
 
 
 if __name__ == "__main__":
     
-    # plot_stability_deter()
-    plot_stability_rand()
+    plot_stability_deter()
+    # plot_stability_rand()

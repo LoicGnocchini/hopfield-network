@@ -39,7 +39,7 @@ def compute_recovery_robustness(num_patterns: int,
         for i,pattern in enumerate(patterns):
 
             corr_pattern = corrupt.corrupt_pattern(pattern, noise, rng)
-            recovered_pat = network.run_network(W, corr_pattern, rng)
+            recovered_pat, _ = network.run_network(W, corr_pattern, rng)
 
             overlaps.append(overlap.compute_overlap(recovered_pat, pattern))
 
