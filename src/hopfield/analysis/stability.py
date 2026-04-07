@@ -73,7 +73,7 @@ def plot_stability_deter():
     plt.axvline(float(x[idx_not_one - 1]), linestyle='--', color="red")
     plt.xlabel("number of patterns")
     plt.ylabel("Stable patterns (%)")
-    plt.savefig("src/hopfield/figures/fig_2a.pdf")
+    plt.savefig("figures/fig_2a.pdf")
     plt.show()
 
 
@@ -87,12 +87,12 @@ def plot_stability_rand():
     plt.axvline(float(x[idx_not_one - 1]), linestyle='--', color="red")
     plt.xlabel("number of patterns")
     plt.ylabel("Stable patterns (%)")
-    plt.savefig("src/hopfield/figures/fig_2b.pdf")
+    plt.savefig("figures/fig_2b.pdf")
     plt.show()
 
 
 
 if __name__ == "__main__":
     
-    plot_stability_deter()
-    # plot_stability_rand()
+    # plot_stability_deter()
+    plot_stability_rand()

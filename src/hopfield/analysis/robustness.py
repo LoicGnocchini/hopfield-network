@@ -103,7 +103,7 @@ def plot_overlap_vs_noise():
     plt.ylabel("Mean overlap")
     plt.xlabel("Initial noise")
     plt.legend()
-
+    plt.savefig("figures/fig_1a.pdf")
     plt.show()
 
 
