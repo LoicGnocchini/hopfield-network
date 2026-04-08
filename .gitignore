@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 docs/
 *.egg-info
+data_test/
 
 # Python
 __pycache__/
