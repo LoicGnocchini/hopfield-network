@@ -11,7 +11,7 @@ def compute_overlap(state: NDArray[np.int8],
                        pattern: NDArray[np.int8]
                        ) -> float:
 
-    return float(np.dot(pattern, state)/state.size)
+    return float(np.dot(pattern.astype(np.float64), state.astype(np.float64))/state.size)
 
 
 

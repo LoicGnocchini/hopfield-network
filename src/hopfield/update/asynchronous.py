@@ -45,7 +45,7 @@ def asynch(state_orig: NDArray[np.float64],
             for j in range(state.size):
                 h += W[index, j] * state[j]
 
-            new_val = 1.0 if h >= 0 else -1.0
+            new_val = 1.0 if h > 0 else -1.0
             
             if new_val != state[index]:
                 state[index] = new_val
