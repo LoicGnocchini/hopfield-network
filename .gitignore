@@ -36,4 +36,4 @@ dist/
 htmlcov/
 celeba_subset/
 MNIST_subset/
-data_test/
+src/hopfield/data_test/
