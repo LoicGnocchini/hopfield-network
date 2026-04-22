@@ -19,11 +19,11 @@ rng = network.rng
 f_MNIST = np.load("src/hopfield/data/fashionMNIST_15_28x28_pm1_flat.npy")
 
 def compute_all_R(patterns: NDArray[np.int8],
-                       weight: NDArray[np.float64],
-                       noise_amounts: NDArray[np.float64],
-                       rng: np.random.Generator,
-                       n_tests: int = 50
-                       ) -> tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.float64]]:
+                  weight: NDArray[np.float64],
+                  noise_amounts: NDArray[np.float64],
+                  rng: np.random.Generator,
+                  n_tests: int = 50
+                  ) -> tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.float64]]:
     
     R_correct = np.zeros(noise_amounts.size)
     R_parasite = np.zeros(noise_amounts.size)
@@ -34,9 +34,9 @@ def compute_all_R(patterns: NDArray[np.int8],
         for target_idx, target_pattern in enumerate(patterns):
             for _ in range(n_tests):
                 corr_pattern = corrupt.corrupt_pattern(target_pattern, noise, rng)
-                state, _ = network.run_network(weight, corr_pattern, rng)
+                state, _ = network.run_network(weight, corr_pattern.astype(np.int64), rng)
 
-                overlaps = np.array([overlap.compute_overlap(state, p) for p in patterns])
+                overlaps = np.array([overlap.compute_overlap(state.astype(np.int8), p) for p in patterns])
                 
                 if overlaps[target_idx] >= 0.95:
                     R_correct[i] += 1

@@ -34,9 +34,9 @@ def generate_patterns(num_patterns: int,
 
 # @timer
 def run_network(weight: NDArray[np.float64], 
-                Pattern_corrupt: NDArray[np.int8], 
+                Pattern_corrupt: NDArray[np.int64], 
                 rng: np.random.Generator
-                ) ->tuple[NDArray[np.int8], NDArray[np.float64]]:
+                ) ->tuple[NDArray[np.int64], NDArray[np.float64]]:
     
     state = Pattern_corrupt
     W = weight
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     # corr_patterns = np.array([p for p in corrupt.corrupt_pattern(patterns, 0.10, rng)])
     corr_pattern = corrupt.corrupt_pattern(patterns[0], 0.3, rng)
 
-    cleaned_pattern, energy_rdm_pat = run_network(hebb.weight_hebb(patterns), corr_pattern, rng)
+    cleaned_pattern, energy_rdm_pat = run_network(hebb.weight_hebb(patterns), corr_pattern.astype(dtype=np.int64), rng)
 
     corr_pat_matrix = corr_pattern.reshape(10,10)
     pattern_0_matrix = patterns[0].reshape(10,10)
@@ -68,7 +68,7 @@ if __name__ == "__main__":
 
     recouvrements = []
     for pattern in patterns:
-        recouvrements.append(overlap.compute_overlap(cleaned_pattern, pattern))
+        recouvrements.append(overlap.compute_overlap(cleaned_pattern.astype(np.int8), pattern))
     
     print(recouvrements)
    

@@ -8,16 +8,16 @@ hamming distance function, takes two args; network's state and original
 pattern
 """
 
-def compute_hamming(state: NDArray[np.int8], 
-                      pattern: NDArray[np.int8]
-                      ) -> float:
+def compute_hamming(state: NDArray[np.int64], 
+                    pattern: NDArray[np.int64]
+                    ) -> float:
     
     return int((state.size - np.dot(pattern,state)) / 2)
 
     
 
-def normalized_hamming(state: NDArray[np.int8], 
-                      pattern: NDArray[np.int8]
+def normalized_hamming(state: NDArray[np.int64], 
+                      pattern: NDArray[np.int64]
                       ) -> float:
     
     return float((state.size - np.dot(pattern,state)) / (2*state.size))
