@@ -171,5 +171,5 @@ if __name__ == "__main__":
     # plot_patterns(celeba[[4, 5, 6, 7]], noise_amount=0.45)
     # plot_patterns(celeba[[4, 5, 6, 7]], noise_amount=0.50)
 
-    animate_step_by_step(corrupt.corrupt_pattern(patts[2], 0.20, network.rng).astype(np.int64),
-                         patts[2], hebb.weight_hebb(patts), (10, 10), network.rng)
+    animate_step_by_step(corrupt.corrupt_pattern(patts[1], 0.20, network.rng).astype(np.int64),
+                         patts[1], hebb.weight_hebb(patts), (10, 10), network.rng)
