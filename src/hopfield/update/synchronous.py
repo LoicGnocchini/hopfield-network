@@ -5,7 +5,7 @@ from numpy.typing import NDArray
 
 from hopfield.analysis.energy import compute_energy
 
-def synch(state: NDArray[np.int64],
+def update_synchronous(state: NDArray[np.int64],
           W: NDArray[np.float64]
           ) -> tuple[NDArray[np.int64], NDArray[np.float64]]:
     """

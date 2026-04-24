@@ -35,7 +35,6 @@ def weight_perceptron(P: NDArray[np.int8]) -> NDArray[np.float64]:
 
                 if pattern[i] * h <= 0:
                     W[i,:] = W[i,:] + eta * ((pattern[i] * pattern))/ N 
-                    W[:,i] = W[i,:] 
                     W[i,i] =0
                     updated = True
         n_iter += 1

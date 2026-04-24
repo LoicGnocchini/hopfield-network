@@ -64,35 +64,53 @@ def stability_rand(num_patterns: NDArray[np.int64],
     return num_patterns, stable_percentile
 
 
-def plot_stability_deter():
-    x, y = stability_deter(np.array([3, 5, 7, 8, 9, 10, 12, 14, 16, 18, 20, 24, 28, 32]),hebb.weight_hebb)
+def plot_stability_deter(learn: Callable,
+                         nb_patterns_arr: NDArray[np.int64]
+                         ) -> None:
+    x, y = stability_deter(nb_patterns_arr,learn)
 
     idx_not_one = np.where(y != 1)[0][0]
+    if len(idx_not_one) > 0:
+        idx_not_one = idx_not_one[0]
+        plt.axvline(float(x[idx_not_one - 1]), linestyle='--', color="red")
 
     plt.plot(x, y * 100,'o', color='black')
-    plt.axvline(float(x[idx_not_one - 1]), linestyle='--', color="red")
     plt.xlabel("number of patterns")
     plt.ylabel("Stable patterns (%)")
-    plt.savefig("figures/fig_2a.pdf")
+    plt.savefig(f"figures/fig_2{'a' if learn == hebb.weight_hebb else 'c'}.pdf")
     plt.show()
 
 
-def plot_stability_rand():
+def plot_stability_rand(learn: Callable,
+                        nb_patterns_arr: NDArray[np.int64]
+                        ) -> None:
 
-    x, y = stability_rand(np.array([10, 25, 100, 200, 300, 400, 500, 600, 700, 800]), hebb.weight_hebb)
+    x, y = stability_rand(nb_patterns_arr, learn)
 
     idx_not_one = np.where(y != 1)[0][0]
 
+    if len(idx_not_one) > 0:
+        idx_not_one = idx_not_one[0]
+        plt.axvline(float(x[idx_not_one - 1]), linestyle='--', color="red")
+
+
     plt.plot(x, y * 100, 'o', color='black')
-    plt.axvline(float(x[idx_not_one - 1]), linestyle='--', color="red")
     plt.xlabel("number of patterns")
     plt.ylabel("Stable patterns (%)")
-    plt.savefig("figures/fig_2b.pdf")
+    plt.savefig(f"figures/fig_2{'b' if learn == hebb.weight_hebb else 'd'}.pdf")
     plt.show()
 
 
 
 if __name__ == "__main__":
     
-    # plot_stability_deter()
-    plot_stability_rand()
+    nb_patterns_hebb_1 = np.array([3, 5, 7, 8, 9, 10, 12, 14, 16, 18, 20, 24, 28, 32])
+    nb_patterns_hebb_2 = np.array([10, 25, 100, 200, 300, 400, 500, 600, 700, 800])
+
+    nb_patterns_perc_1 = np.array([25, 50, 100, 200])
+    nb_patterns_perc_2 = np.array([10, 25, 100, 200, 300, 400, 500, 600, 700, 800])
+
+    # plot_stability_deter(hebb.weight_hebb, nb_patterns_hebb_1)
+    # plot_stability_rand(hebb.weight_hebb, nb_patterns_hebb_2)
+    plot_stability_deter(perceptron.weight_perceptron, nb_patterns_perc_1)
+    # plot_stability_rand(perceptron.weight_perceptron, nb_patterns_perc_2)

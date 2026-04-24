@@ -14,3 +14,4 @@ def compute_energy(state: NDArray[np.float64],
     return float(- 0.5 * state @ weight_matrix @ state)
 
     
+
