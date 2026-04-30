@@ -10,7 +10,7 @@ from numba import njit
 from  timer_wrapper import timer
 
 from hopfield.learning import hebb, perceptron
-from hopfield.update import asynchronous
+from hopfield.update import asynchronous, synchronous
 from hopfield.utils import corrupt
 from hopfield.analysis import overlap
 
@@ -43,6 +43,15 @@ def run_network(weight: NDArray[np.float64],
 
     return asynchronous.update_asynch(state, W, rng)
     
+def run_network_synchronous(weight: NDArray[np.float64], 
+                            Pattern_corrupt: NDArray[np.int64], 
+                            rng: np.random.Generator
+                            ) ->tuple[NDArray[np.int64], NDArray[np.float64]]:
+    
+    state = Pattern_corrupt
+    W = weight
+
+    return synchronous.update_synchronous(state, W)
  
 
 

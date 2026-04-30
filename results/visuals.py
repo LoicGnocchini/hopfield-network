@@ -5,6 +5,7 @@ from hopfield.learning import hebb, perceptron
 from hopfield.utils import corrupt
 from hopfield import network
 from numpy.typing import NDArray
+from typing import Callable
 import matplotlib.colors as mcolors
 from PIL import Image
 
@@ -20,30 +21,33 @@ patterns_mnist = fashionMNIST[[0, 8, 23]]
 
 def plot_patterns(patterns: NDArray[np.int64],
                   noise_amount: float,
+                  learning_rule: Callable,
+                  network_type: Callable,
                   ) -> None:
     
 
     celeba_patterns = celeba[[4, 5, 6, 7]]
-    weight_celeba_hebb = hebb.weight_hebb(celeba_patterns)
-    # weight_celeba_perceptron = perceptron.weight_perceptron(celeba_patterns)
-
     corrupted_celeba = np.array([corrupt.corrupt_pattern(p, noise_amount, network.rng) for p in celeba_patterns])
 
-    post_hebb = np.array([network.run_network(weight_celeba_hebb, c, network.rng)[0] for c in corrupted_celeba])
-    # post_perceptron = np.array([network.run_network(weight_celeba_perceptron, c, network.rng)[0] for c in corrupted_celeba])
+    if learning_rule == hebb.weight_hebb:
+        weight_celeba_hebb = hebb.weight_hebb(celeba_patterns)
+        post_hebb = np.array([network_type(weight_celeba_hebb, c, network.rng)[0] for c in corrupted_celeba])
+        hamming_dist = np.array([hamming.compute_hamming(post_hebb[i], celeba_patterns[i]) for i in range(post_hebb.shape[0])])
+        plot_array = np.append(celeba_patterns, np.append(corrupted_celeba, post_hebb, axis=0), axis=0)
 
-    plot_array_hebb = np.append(celeba_patterns, np.append(corrupted_celeba, post_hebb, axis=0), axis=0)
-    # plot_array_perceptron = np.append(corrupted_celeba, post_perceptron, axis=0)
-
-    hamming_dist = np.array([hamming.compute_hamming(post_hebb[i], celeba_patterns[i]) for i in range(post_hebb.shape[0])])
+    else: # == perceptron.weight_perceptron
+        weight_celeba_perceptron = perceptron.weight_perceptron(celeba_patterns)
+        post_perceptron = np.array([network_type(weight_celeba_perceptron, c, network.rng)[0] for c in corrupted_celeba])
+        hamming_dist = np.array([hamming.compute_hamming(post_perceptron[i], celeba_patterns[i]) for i in range(post_perceptron.shape[0])])
+        plot_array = np.append(celeba_patterns, np.append(corrupted_celeba, post_perceptron, axis=0), axis=0)
 
     cmap_nb = mcolors.LinearSegmentedColormap.from_list("noir_blanc", ["black", "white"])
     norm = mcolors.Normalize(vmin=-1, vmax=1)
 
     plt.figure(figsize=(10, 8))
-    for i in range(plot_array_hebb.shape[0]):
+    for i in range(plot_array.shape[0]):
         plt.subplot(3,4,i+1)
-        plt.imshow(plot_array_hebb[i].reshape(100,100), cmap=cmap_nb, norm=norm)
+        plt.imshow(plot_array[i].reshape(100,100), cmap=cmap_nb, norm=norm)
         if i < 4:
             plt.title("Original")
         elif i >= 8:
@@ -52,10 +56,36 @@ def plot_patterns(patterns: NDArray[np.int64],
         plt.axis('off')
     plt.tight_layout()
     plt.subplots_adjust(top=0.90)
-    plt.suptitle(f"Pattern recognition with Hebbian learning at {noise_amount * 100:.0f}% noise, P={celeba_patterns.shape[0]}", fontsize=16)
-    plt.savefig(f"figures/celeba_samples_noise{noise_amount}.pdf")
+    plt.suptitle(f"Pattern recognition with Hebbian learning at {noise_amount * 100:.0f}% noise, P={celeba_patterns.shape[0]}, {'synchronous' if network_type.__name__ == 'run_network_synchronous' else 'asynchronous'}", fontsize=16)
+    plt.savefig(f"figures/celeba_samples_noise{noise_amount}_{'synch' if network_type.__name__ == 'run_network_synchronous' else 'asynch'}.pdf")
     plt.show()
 
+
+def plot_pattern_perceptron(patterns: NDArray[np.int64],
+                            noise_amount: float) -> None:
+    weight = perceptron.weight_perceptron(patterns.astype(np.int8))
+    corrupted = np.array([corrupt.corrupt_pattern(p, noise_amount, network.rng) for p in patterns])
+    post = np.array([network.run_network(weight, c, network.rng)[0] for c in corrupted])
+    hamming_dist = np.array([hamming.compute_hamming(post[i], patterns[i]) for i in range(post.shape[0])])
+    plot_array = np.append(patterns, np.append(corrupted, post, axis=0), axis=0)
+    
+    cmap_nb = mcolors.LinearSegmentedColormap.from_list("noir_blanc", ["black", "white"])
+    norm = mcolors.Normalize(vmin=-1, vmax=1)
+
+    plt.figure(figsize=(10, 8))
+    for i in range(plot_array.shape[0]):
+        plt.subplot(3, patterns.shape[0], i+1)
+        plt.imshow(plot_array[i].reshape(100,100), cmap=cmap_nb, norm=norm)
+        if i < 4:
+            plt.title("Original")
+        elif i >= 8:
+            plt.title(f"Hamming: {hamming_dist[i % 4]}")
+        plt.axis('off')
+    plt.tight_layout()
+    plt.subplots_adjust(top=0.90)
+    plt.suptitle(f"Pattern recognition with Perceptron learning at {noise_amount * 100:.0f}% noise, P={patterns.shape[0]}", fontsize=16)
+    plt.savefig(f"figures/celeba_samples_noise{noise_amount}_perceptron.pdf")
+    plt.show()
 
 def animate_step_by_step(state_orig: NDArray[np.int64],
                          target_pattern: NDArray[np.int64], 
@@ -167,9 +197,15 @@ if __name__ == "__main__":
 
     patts = np.array([checker, house, pi])
 
-    # plot_patterns(celeba[[4, 5, 6, 7]], noise_amount=0.40)
-    # plot_patterns(celeba[[4, 5, 6, 7]], noise_amount=0.45)
-    # plot_patterns(celeba[[4, 5, 6, 7]], noise_amount=0.50)
+    
+    # plot_patterns(celeba[[4, 5, 6, 7]], noise_amount=0.40, learning_rule=hebb.weight_hebb, network_type=network.run_network)
+    # plot_patterns(celeba[[4, 5, 6, 7]], noise_amount=0.45, learning_rule=hebb.weight_hebb, network_type=network.run_network)
+    # plot_patterns(celeba[[4, 5, 6, 7]], noise_amount=0.50, learning_rule=hebb.weight_hebb, network_type=network.run_network)
 
-    animate_step_by_step(corrupt.corrupt_pattern(patts[1], 0.20, network.rng).astype(np.int64),
-                         patts[1], hebb.weight_hebb(patts), (10, 10), network.rng)
+    # plot_patterns(celeba[[4, 5, 6, 7]], noise_amount=0.40, learning_rule=hebb.weight_hebb, network_type=network.run_network_synchronous)
+    # plot_patterns(celeba[[4, 5, 6, 7]], noise_amount=0.45, learning_rule=hebb.weight_hebb, network_type=network.run_network_synchronous)
+    # plot_patterns(celeba[[4, 5, 6, 7]], noise_amount=0.50, learning_rule=hebb.weight_hebb, network_type=network.run_network_synchronous)
+
+    plot_pattern_perceptron(celeba[[4, 5, 6, 7]], noise_amount=0.50)
+    # animate_step_by_step(corrupt.corrupt_pattern(patts[1], 0.20, network.rng).astype(np.int64),
+    #                      patts[1], hebb.weight_hebb(patts), (10, 10), network.rng)

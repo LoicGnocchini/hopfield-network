@@ -1,5 +1,5 @@
 import numpy as np
-
+from tqdm import tqdm
 from numba import njit
 from numpy.typing import NDArray
 from timer_wrapper import timer
@@ -25,7 +25,7 @@ def weight_perceptron(P: NDArray[np.int8]) -> NDArray[np.float64]:
         updated = False
         for pattern in Pf:
 
-            for i in range(len(pattern)):
+            for i, _ in enumerate(pattern):
                 
                 W[i,i] = 0
                

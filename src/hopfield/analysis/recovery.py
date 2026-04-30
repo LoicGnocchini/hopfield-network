@@ -56,17 +56,22 @@ if __name__ == "__main__":
     W_hebb = hebb.weight_hebb(patterns_mnist)
     noise_arr = np.linspace(0.2, 0.8, 50)
 
-    R_correct, R_parasite, R_autre = compute_all_R(patterns_mnist, W_hebb, noise_arr, rng, n_tests=50)
-    
-    plt.plot(noise_arr, R_correct, marker='o', markersize=5, color='blue', label="Récupération correcte ($R$)")
-    plt.plot(noise_arr, R_parasite, marker='s', markersize=5, color='red', label="États parasites ($R_{parasite}$)")
-    plt.plot(noise_arr, R_autre, marker='^', markersize=5, color='green', label="Autres états ($R_{autre}$)")
+    R_correct_hebb, R_parasite_hebb, R_autre_hebb = compute_all_R(patterns_mnist, 
+                                                                  W_hebb,
+                                                                  noise_arr, 
+                                                                  rng, 
+                                                                  n_tests=50)
 
-    plt.xlabel(r"Niveau de bruit initial ($\eta$)")
-    plt.ylabel("Taux")
-    plt.title("Bassin d'attraction et États Parasites (P=3, N=784)")
+    plt.plot(noise_arr, R_correct_hebb, marker='o', markersize=5, color='blue', label="Récupération correcte ($R$)")
+    plt.plot(noise_arr, R_parasite_hebb, marker='s', markersize=5, color='red', label="États parasites ($R_{parasite}$)")
+    plt.plot(noise_arr, R_autre_hebb, marker='^', markersize=5, color='green', label="Autres états ($R_{autre}$)")
+
+    plt.xlabel(r"Initial noise ($\eta$)")
+    plt.ylabel("rate")
+    plt.title("Bassin of attraction and parasite states (P=3, N=784), Hebbian learning")
     plt.legend()
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.ylim(-0.05, 1.05)
+
     plt.savefig("figures/fig_3.pdf")
     plt.show()
