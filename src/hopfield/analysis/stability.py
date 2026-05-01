@@ -115,7 +115,7 @@ if __name__ == "__main__":
     nb_patterns_perc_1 = np.array([10,100,1000])
     nb_patterns_perc_2 = np.array([10, 25, 100, 200, 300, 400, 500, 600, 700, 800])
 
-    # plot_stability_deter(hebb.weight_hebb, nb_patterns_hebb_1)
-    # plot_stability_rand(hebb.weight_hebb, nb_patterns_hebb_2)
-    plot_stability_deter(perceptron.weight_perceptron, nb_patterns_perc_1, mnist)
+    plot_stability_deter(hebb.weight_hebb, nb_patterns_hebb_1, celeba)
+    plot_stability_rand(hebb.weight_hebb, nb_patterns_hebb_2, celeba)
+    # plot_stability_deter(perceptron.weight_perceptron, nb_patterns_perc_1, mnist)
     # plot_stability_rand(perceptron.weight_perceptron, nb_patterns_perc_2, mnist)
