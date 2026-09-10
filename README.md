@@ -21,7 +21,7 @@ Some of the experiments use randomly generated patterns, while others use binary
 Example of pattern reconstruction using the hebbian learning rule with asynchronous update:
 
 <p align="center">
-  <img src="figures/celeba_samples_noise0.45_asynch.png" width="45%" />
+  <img src="figures/celeba_samples_noise0.45_asynch.png" width="95%" />
 </p>
 
 ![Pattern reconstruction](figures/celeba_samples_noise0.45_asynch.png)
