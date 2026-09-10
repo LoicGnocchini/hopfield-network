@@ -62,117 +62,33 @@ if __name__ == "__main__":
     cmap_nb = mcolors.LinearSegmentedColormap.from_list("noir_blanc", ["black", "white"])
     norm = mcolors.Normalize(vmin=-1, vmax=1)
     
+# ------------------------Test with random patterns-------------------------------
 
-# -----------------------------random patterns-----------------------------------
+    patterns = generate_patterns(3, 20, rng)
+    corr_pattern = corrupt.corrupt_pattern(patterns[0], 0.42, rng)
 
-    patterns = generate_patterns(10, 10, rng)
-    # corr_patterns = np.array([p for p in corrupt.corrupt_pattern(patterns, 0.10, rng)])
-    corr_pattern = corrupt.corrupt_pattern(patterns[0], 0.3, rng)
+    recovered_pattern, energy_rdm_pat = run_network(hebb.weight_hebb(patterns), corr_pattern.astype(dtype=np.int64), rng)
 
-    cleaned_pattern, energy_rdm_pat = run_network(hebb.weight_hebb(patterns), corr_pattern.astype(dtype=np.int64), rng)
+    corr_pat_matrix = corr_pattern.reshape(20,20)
+    pattern_0_matrix = patterns[0].reshape(20,20)
+    recovered_pattern_matrix = recovered_pattern.reshape(20,20)
 
-    corr_pat_matrix = corr_pattern.reshape(10,10)
-    pattern_0_matrix = patterns[0].reshape(10,10)
-    cleaned_pattern_matrix = cleaned_pattern.reshape(10,10)
-
-    recouvrements = []
-    for pattern in patterns:
-        recouvrements.append(overlap.compute_overlap(cleaned_pattern.astype(np.int8), pattern))
+    overlap_tab = []
+    for p in [patterns[0], corr_pattern, recovered_pattern]:
+        overlap_tab.append(overlap.compute_overlap(p.astype(np.int8), patterns[0].astype(np.int8)))
     
-    print(recouvrements)
+    print("overlap with original pattern:", overlap_tab[0])
    
-
     plt.subplot(1,3,1)
     plt.imshow(pattern_0_matrix, cmap=cmap_nb, norm=norm)
-    plt.title("initial pattern")
+    plt.title(f"initial pattern\noverlap = {overlap_tab[0]:.2f}")
 
     plt.subplot(1,3,2)
     plt.imshow(corr_pat_matrix, cmap=cmap_nb, norm=norm)
-    plt.title("corrupted pattern")
+    plt.title(f"corrupted pattern\noverlap = {overlap_tab[1]:.2f}")
 
     plt.subplot(1,3,3)
-    plt.imshow(cleaned_pattern_matrix, cmap=cmap_nb, norm=norm)
-    plt.title("cleaned pattern")
+    plt.imshow(recovered_pattern_matrix, cmap=cmap_nb, norm=norm)
+    plt.title(f"recovered pattern\noverlap = {overlap_tab[2]:.2f}")
 
     plt.show() 
-
-
-#--------------------------------------------------------------------------------
-#--------------------------------XAV & LOUNA-------------------------------------
-
-    # louna = np.array(np.loadtxt("src/hopfield/data/image1_100x100_matrix.txt"),
-    #                   dtype= np.int8)
-    # xavier = np.array(np.loadtxt("src/hopfield/data/image2_100x100_matrix.txt"), 
-    #                   dtype=np.int8)
-    # xavier2 = np.array(np.loadtxt("src/hopfield/data/image3_100x100_matrix.txt"), 
-    #                   dtype=np.int8)
-
-    # patterns_xl = np.array([  louna.reshape(10_000,),
-    #                          xavier.reshape(10_000,), 
-    #                         xavier2.reshape(10_000,)])
-
-    # -------------corrupt---------------
-    # louna_corr   = corrupt.corrupt_pattern(  louna.reshape(10_000,), 0.4, rng)
-    # xavier_corr  = corrupt.corrupt_pattern( xavier.reshape(10_000,), 0.4, rng)
-    # xavier2_corr = corrupt.corrupt_pattern(xavier2.reshape(10_000,), 0.4, rng)
-
-
-    # ---------focused_corrupt-----------
-    # louna_corr_2   = corrupt.corrupt_focused_pattern(  louna.reshape(10_000,), 0.40, rng)
-    # xavier_corr_2  = corrupt.corrupt_focused_pattern(  xavier.reshape(10_000,), 0.40, rng)
-    # xavier2_corr_2 = corrupt.corrupt_focused_pattern(  xavier2.reshape(10_000,), 0.40, rng)
-    
-
-
-    # ---------------cleaned hebb -----------------
-    # louna_clean   = run_network(patterns_xl, louna_corr,
-    #                             hebb.weight_hebb, rng)
-    # xavier_clean  = run_network(patterns_xl, xavier_corr,
-    #                             hebb.weight_hebb, rng)
-    # xavier2_clean = run_network(patterns_xl, xavier2_corr, 
-    #                             hebb.weight_hebb, rng)
-
-    # -------------cleaned perceptron--------------
-    # louna_clean   = run_network(patterns_xl, louna_corr,
-    #                             perceptron.weight_perceptron, rng)
-    # xavier_clean  = run_network(patterns_xl, xavier_corr,
-    #                             perceptron.weight_perceptron, rng)
-    # xavier2_clean = run_network(patterns_xl, xavier2_corr, 
-    #                             perceptron.weight_perceptron, rng)
-
-
-    # -------------corrupt plots-----------------
-    # plt.subplot(2,3,1)
-    # plt.imshow(louna_corr.reshape(100,100), cmap=cmap_nb, norm=norm)
-    # plt.title("louna corrupted")
-
-    # plt.subplot(2,3,4)
-    # plt.imshow(louna_clean.reshape(100,100), cmap=cmap_nb, norm=norm)
-    # plt.title("louna cleaned")
-
-    # plt.subplot(2,3,2)
-    # plt.imshow(xavier_corr.reshape(100,100), cmap=cmap_nb, norm=norm)
-    # plt.title("xavier corrupted")
-
-    # plt.subplot(2,3,5)
-    # plt.imshow(xavier_clean.reshape(100,100), cmap=cmap_nb, norm=norm)
-    # plt.title("xavier cleaned")
-
-    # plt.subplot(2,3,3)
-    # plt.imshow(xavier2_corr.reshape(100,100), cmap=cmap_nb, norm=norm)
-    # plt.title("xavier2 corrupted")
-
-    # plt.subplot(2,3,6)
-    # plt.imshow(xavier2_clean.reshape(100,100), cmap=cmap_nb, norm=norm)
-    # plt.title("xavier2 cleaned")
-
-    # plt.show()
-
-    # ---------focused corrupt plots----------
-    # plt.subplot(2,1,1)
-    # plt.imshow(louna_corr_2.reshape(100,100), cmap=cmap_nb, norm=norm)
-
-    # plt.subplot(2,1,2)
-    # plt.imshow(louna_clean.reshape(100,100), cmap=cmap_nb, norm=norm)
-
-    # plt.show()
