@@ -31,7 +31,7 @@ Evolution of the energy until convergence
       <b>Evolution of the energy for hebbian learning</b>
     </td>
     <td align="center">
-      <img src="figures/Energy_percpetron_500_20x20.png" width="90%" /><br>
+      <img src="figures/Energy_perceptron_500_20x20.png" width="90%" /><br>
       <b>Evolution of the energy for perceptron and hebbian learning</b>
     </td>
   </tr>
