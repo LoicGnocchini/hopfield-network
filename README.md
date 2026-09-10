@@ -71,12 +71,22 @@ A more detailed description of the experiments and results is available in the
 
 ## Installation
 
-Clone the repository and install the dependencies:
+Clone the repository and install the package in editable mode:
 
 ```bash
 git clone https://github.com/LoicGnocchini/hopfield-network.git
 cd hopfield-network
-pip install -r requirements.txt
+pip install -e .
+```
+
+The preprocessed image datasets used in the experiments are already included in `src/hopfield/data/`, so no additional dataset download is required.
+
+All scripts and experiments should be run from the repository root directory.
+
+To test the installation and run a simple Hopfield network demonstration:
+
+```bash
+python -m hopfield.network
 ```
 
 The project requires Python 3.9 or newer.
