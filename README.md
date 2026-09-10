@@ -18,13 +18,17 @@ Some of the experiments use randomly generated patterns, while others use binary
 
 ## Example results
 
-Example of pattern reconstruction using the perceptron learning rule:
+Example of pattern reconstruction using the hebbian learning rule with asynchronous update:
 
 ![Pattern reconstruction](figures/celeba_samples_noise0.45_asynch.png)
 
-Energy evolution during retrieval:
+Robustness to initial noise with different amounts of patterns:
 
-![Energy comparison](figures/fig_1a.png)
+![Robustness to initial noise](figures/fig_1a.png)
+
+Stability vs number of patterns saved:
+
+![Robustness to initial noise](figures/fig_2a.png) ![Robustness to initial noise](figures/fig_2b.png)
 
 ## Project structure
 
