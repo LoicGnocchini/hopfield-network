@@ -29,8 +29,8 @@ Robustness to initial noise with different amounts of patterns:
 Stability vs number of patterns saved:
 
 <p align="center">
-  <img src="figures/fig_2a.png" width="48.9%" />
-  <img src="figures/fig_2b.png" width="48.9%" />
+  <img src="figures/fig_2a.png" width="49%" />
+  <img src="figures/fig_2b.png" width="49%" />
 </p>
 ## Project structure
 
