@@ -3,7 +3,7 @@ __pycache__/
 *.pyc
 docs/
 *.egg-info
-./data_test/
+data_test/
 
 # Python
 __pycache__/
@@ -37,3 +37,4 @@ htmlcov/
 celeba_subset/
 MNIST_subset/
 src/hopfield/data_test/
+/results/
