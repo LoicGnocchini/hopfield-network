@@ -20,11 +20,11 @@ Some of the experiments use randomly generated patterns, while others use binary
 
 Example of pattern reconstruction using the perceptron learning rule:
 
-![Pattern reconstruction](figures/celeba_samples_noise0.5_perceptron.pdf)
+![Pattern reconstruction](figures/celeba_samples_noise0.45_asynch.png)
 
 Energy evolution during retrieval:
 
-![Energy comparison](figures/energy_comparison.pdf)
+![Energy comparison](figures/fig_1a.png)
 
 ## Project structure
 
