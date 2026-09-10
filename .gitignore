@@ -39,3 +39,4 @@ celeba_subset/
 MNIST_subset/
 src/hopfield/data_test/
 notebooks/
+experiments/
