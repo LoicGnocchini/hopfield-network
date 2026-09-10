@@ -4,6 +4,7 @@ __pycache__/
 docs/
 *.egg-info
 src/hopfield/data_test/
+TOTO.md
 
 # Python
 __pycache__/
