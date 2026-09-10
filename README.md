@@ -16,11 +16,20 @@ The project includes Hebbian and perceptron-based learning rules, synchronous an
 
 Some of the experiments use randomly generated patterns, while others use binary images.
 
+## Example results
+
+Example of pattern reconstruction using the perceptron learning rule:
+
+![Pattern reconstruction](figures/celeba_samples_noise0.5_perceptron.png)
+
+Energy evolution during retrieval:
+
+![Energy comparison](figures/energy_comparison.png)
+
 ## Project structure
 
 * `src/hopfield/` — main implementation
 * `experiments/` — experiment scripts
-* `notebooks/` — exploratory notebooks
 * `figures/` — figures generated from the experiments
 * `results/` — saved experimental results
 
