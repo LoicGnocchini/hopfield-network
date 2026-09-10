@@ -28,7 +28,7 @@ Evolution of the energy until convergence
   <tr>
     <td align="center">
       <img src="figures/energy_hebb.png" width="90%" /><br>
-      <b>Evolution of the energy for hebbian learning</b>
+      <b>Evolution of the energy for hebbian learning, synchronous (blue) and asynchronous (yellow)</b>
     </td>
     <td align="center">
       <img src="figures/energy_comparison.png" width="90%" /><br>
