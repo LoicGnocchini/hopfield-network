@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "hopfield-network"
 version = "0.1.0"
-description = "Hopfield network project for PHY3075"
+description = "Hopfield network in Python with Hebbian and perceptron-like learning"
 requires-python = ">=3.9"
 dependencies = [
     "numpy",
@@ -13,6 +13,7 @@ dependencies = [
     "pillow",
     "numba",
     "scipy",
+    "tqdm",
 ]
 
 [tool.setuptools]
