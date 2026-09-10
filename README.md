@@ -20,10 +20,6 @@ Some of the experiments use randomly generated patterns, while others use binary
 
 Example of pattern reconstruction using the hebbian learning rule with asynchronous update:
 
-<p align="center">
-  <img src="figures/celeba_samples_noise0.45_asynch.png" width="95%" />
-</p>
-
 ![Pattern reconstruction](figures/celeba_samples_noise0.45_asynch.png)
 
 Robustness to initial noise with different amounts of patterns:
@@ -33,8 +29,8 @@ Robustness to initial noise with different amounts of patterns:
 Stability vs number of patterns saved:
 
 <p align="center">
-  <img src="figures/fig_2a.png" width="45%" />
-  <img src="figures/fig_2b.png" width="45%" />
+  <img src="figures/fig_2a.png" width="50%" />
+  <img src="figures/fig_2b.png" width="50%" />
 </p>
 ## Project structure
 
