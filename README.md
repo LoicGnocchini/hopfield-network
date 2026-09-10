@@ -60,9 +60,9 @@ Stability vs number of patterns saved:
 ## Project structure
 
 * `src/hopfield/` — main implementation
-* `experiments/` — experiment scripts
 * `figures/` — figures generated from the experiments
 * `results/` — saved experimental results
+* `report/` — pdf document explaining the results
 
 ## Report
 
@@ -81,7 +81,7 @@ pip install -e .
 
 The preprocessed image datasets used in the experiments are already included in `src/hopfield/data/`, so no additional dataset download is required.
 
-All scripts and experiments should be run from the repository root directory.
+All scripts should be run from the repository root directory.
 
 To test the installation and run a simple Hopfield network demonstration:
 
