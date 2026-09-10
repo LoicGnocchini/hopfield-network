@@ -64,6 +64,11 @@ Stability vs number of patterns saved:
 * `figures/` — figures generated from the experiments
 * `results/` — saved experimental results
 
+## Report
+
+A more detailed description of the experiments and results is available in the
+[full project report (PDF, French)](report/hopfield_network_report.pdf).
+
 ## Installation
 
 Clone the repository and install the dependencies:
