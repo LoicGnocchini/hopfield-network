@@ -28,8 +28,10 @@ Robustness to initial noise with different amounts of patterns:
 
 Stability vs number of patterns saved:
 
-![Robustness to initial noise](figures/fig_2a.png) ![Robustness to initial noise](figures/fig_2b.png)
-
+<p align="center">
+  <img src="figures/fig_2a.png" width="45%" />
+  <img src="figures/fig_2b.png" width="45%" />
+</p>
 ## Project structure
 
 * `src/hopfield/` — main implementation
