@@ -14,7 +14,7 @@ The project includes Hebbian and perceptron-based learning rules, synchronous an
 * Overlap between retrieved and stored patterns
 * Energy evolution during retrieval
 
-Some of the experiments use randomly generated patterns, while others use binary images.
+Some of the experiments use randomly generated patterns, while others use binary images from the CelebA dataset.
 
 ## Example results
 
