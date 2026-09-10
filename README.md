@@ -32,6 +32,21 @@ Stability vs number of patterns saved:
   <img src="figures/fig_2a.png" width="49.5%" />
   <img src="figures/fig_2b.png" width="49.5%" />
 </p>
+
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="figures/fig_2a.png" width="90%" /><br>
+      <b>Hebbian learning</b>
+    </td>
+    <td align="center">
+      <img src="figures/fig_2b.png" width="90%" /><br>
+      <b>Perceptron learning</b>
+    </td>
+  </tr>
+</table>
+
 ## Project structure
 
 * `src/hopfield/` — main implementation
