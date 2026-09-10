@@ -22,27 +22,37 @@ Example of pattern reconstruction using the hebbian learning rule with asynchron
 
 ![Pattern reconstruction](figures/celeba_samples_noise0.45_asynch.png)
 
+Evolution of the energy until convergence
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="figures/energy_hebb.png" width="90%" /><br>
+      <b>Evolution of the energy for hebbian learning</b>
+    </td>
+    <td align="center">
+      <img src="figures/Energy_percpetron_500_20x20.png" width="90%" /><br>
+      <b>Evolution of the energy for perceptron and hebbian learning</b>
+    </td>
+  </tr>
+</table>
+
+
 Robustness to initial noise with different amounts of patterns:
 
 ![Robustness to initial noise](figures/fig_1a.png)
 
 Stability vs number of patterns saved:
 
-<p align="center">
-  <img src="figures/fig_2a.png" width="49.5%" />
-  <img src="figures/fig_2b.png" width="49.5%" />
-</p>
-
-
 <table>
   <tr>
     <td align="center">
       <img src="figures/fig_2a.png" width="90%" /><br>
-      <b>Hebbian learning</b>
+      <b>Similar patterns</b>
     </td>
     <td align="center">
       <img src="figures/fig_2b.png" width="90%" /><br>
-      <b>Perceptron learning</b>
+      <b>Random patterns</b>
     </td>
   </tr>
 </table>
